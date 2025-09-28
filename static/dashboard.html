@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QuickPay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <i class="fas fa-wallet"></i>
+            <span>QuickPay</span>
+        </div>
+        <div class="nav-user">
+            <span id="userName">User</span>
+            <div class="user-menu">
+                <button onclick="toggleUserMenu()" class="user-btn">
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="userDropdown" class="user-dropdown hidden">
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="transactions.html"><i class="fas fa-history"></i> Transactions</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="deposit.html" class="nav-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Deposit</span>
+                </a>
+                <a href="airtime.html" class="nav-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Airtime</span>
+                </a>
+                <a href="data.html" class="nav-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Data</span>
+                </a>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="welcome-banner">
+                <h1>Welcome back, <span id="welcomeName">User</span>!</h1>
+                <p>Here's your financial overview</p>
+            </div>
+
+            <div class="balance-card">
+                <div class="balance-info">
+                    <h3>Account Balance</h3>
+                    <h1 id="balanceAmount">₦0.00</h1>
+                    <p>Account: <span id="accountNumber">---</span></p>
+                </div>
+                <div class="balance-actions">
+                    <button onclick="location.href='deposit.html'" class="btn-primary">
+                        <i class="fas fa-plus"></i> Deposit
+                    </button>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <div class="action-card" onclick="location.href='deposit.html'">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Deposit</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='airtime.html'">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Airtime</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='data.html'">
+                        <i class="fas fa-wifi"></i>
+                        <span>Data</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='transactions.html'">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-transactions">
+                <h2>Recent Transactions</h2>
+                <div id="transactionsList" class="transactions-list">
+                    <div class="loading">Loading transactions...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

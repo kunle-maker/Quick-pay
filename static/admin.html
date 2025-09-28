@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - QuickPay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <i class="fas fa-wallet"></i>
+            <span>QuickPay Admin</span>
+        </div>
+        <div class="nav-user">
+            <span>Administrator</span>
+            <div class="user-menu">
+                <button onclick="toggleAdminMenu()" class="user-btn">
+                    <i class="fas fa-user-shield"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="adminDropdown" class="user-dropdown hidden">
+                    <a href="#" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="payments" onclick="switchTab('payments')">
+                    <i class="fas fa-money-check"></i>
+                    <span>Pending Payments</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="users" onclick="switchTab('users')">
+                    <i class="fas fa-users"></i>
+                    <span>User Management</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="transactions" onclick="switchTab('transactions')">
+                    <i class="fas fa-history"></i>
+                    <span>All Transactions</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="welcome-banner">
+                <h1>Admin Dashboard</h1>
+                <p>Manage QuickPay system and user accounts</p>
+            </div>
+
+            <div id="alertsContainer"></div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-pane active">
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingPayments">0</div>
+                        <div class="stat-label">Pending Payments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalBalance">₦0</div>
+                        <div class="stat-label">Total Balance</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <div class="action-card" onclick="switchTab('payments')">
+                            <i class="fas fa-money-check"></i>
+                            <span>Review Payments</span>
+                        </div>
+                        <div class="action-card" onclick="switchTab('users')">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Manage Users</span>
+                        </div>
+                        <div class="action-card" onclick="refreshDashboard()">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Refresh Data</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Payments Tab -->
+            <div id="payments" class="tab-pane">
+                <div class="admin-panel">
+                    <h2><i class="fas fa-money-check"></i> Pending Payment Verifications</h2>
+                    <p>Review and approve or reject deposit requests</p>
+                    
+                    <div id="pendingPaymentsList" class="payments-list">
+                        <div class="loading">Loading pending payments...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management Tab -->
+            <div id="users" class="tab-pane">
+                <div class="admin-panel">
+                    <h2><i class="fas fa-users"></i> User Management</h2>
+                    <p>Manage all registered users and their accounts</p>
+                    
+                    <div id="usersList" class="users-list">
+                        <div class="loading">Loading users...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div id="transactions" class="tab-pane">
+                <div class="admin-panel">
+                    <h2><i class="fas fa-history"></i> All Transactions</h2>
+                    <p>View all system transactions</p>
+                    <p class="info-note"><i class="fas fa-info-circle"></i> Click on any user to view their transaction history</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

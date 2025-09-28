@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - QuickPay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <i class="fas fa-wallet"></i>
+            <span>QuickPay</span>
+        </div>
+        <div class="nav-user">
+            <span id="userName">User</span>
+            <div class="user-menu">
+                <button onclick="toggleUserMenu()" class="user-btn">
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="userDropdown" class="user-dropdown hidden">
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="transactions.html"><i class="fas fa-history"></i> Transactions</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="deposit.html" class="nav-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Deposit</span>
+                </a>
+                <a href="airtime.html" class="nav-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Airtime</span>
+                </a>
+                <a href="data.html" class="nav-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Data</span>
+                </a>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="profile.html" class="nav-item active">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="welcome-banner">
+                <h1>My Profile</h1>
+                <p>Manage your account information and security settings</p>
+            </div>
+
+            <!-- PIN Setup Alert (for new users) -->
+            <div id="pinSetupAlert" class="alert warning hidden">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Security Setup Required</strong>
+                    <p>Please set up your Login PIN and Payment PIN to enable transactions</p>
+                </div>
+                <button onclick="openTab('security')" class="btn-primary">Set Up PINs</button>
+            </div>
+
+            <div id="alertsContainer"></div>
+
+            <div class="profile-tabs">
+                <button class="tab-btn active" onclick="openTab('profileInfo')">Profile Information</button>
+                <button class="tab-btn" onclick="openTab('security')">Security & PINs</button>
+                <button class="tab-btn" onclick="openTab('accountInfo')">Account Details</button>
+            </div>
+
+            <div class="tab-content active" id="profileInfo">
+                <div class="form-container">
+                    <h3><i class="fas fa-user-edit"></i> Edit Profile</h3>
+                    <form id="profileForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" required>
+                            <i class="fas fa-phone input-icon"></i>
+                        </div>
+
+                        <button type="submit" id="profileSubmitBtn" class="btn-primary">
+                            <span id="profileSubmitText">Update Profile</span>
+                            <div id="profileSubmitSpinner" class="spinner hidden"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tab-content" id="security">
+                <div class="form-container">
+                    <h3><i class="fas fa-shield-alt"></i> Security Settings</h3>
+                    
+                    <!-- PIN Setup Section -->
+                    <div class="pin-setup-section">
+                        <h4><i class="fas fa-key"></i> Set Up Your PINs</h4>
+                        <p class="pin-description">PINs are required for secure transactions. Keep them safe and don't share with anyone.</p>
+                        
+                        <form id="pinSetupForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="loginPin">6-Digit Login PIN</label>
+                                <input type="password" id="loginPin" name="loginPin" maxlength="6" pattern="[0-9]{6}" 
+                                       placeholder="Enter 6 digits" required>
+                                <i class="fas fa-sign-in-alt input-icon"></i>
+                                <small>Used for secure login verification</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentPin">6-Digit Payment PIN</label>
+                                <input type="password" id="paymentPin" name="paymentPin" maxlength="6" pattern="[0-9]{6}" 
+                                       placeholder="Enter 6 digits" required>
+                                <i class="fas fa-credit-card input-icon"></i>
+                                <small>Required for all transactions (airtime, data, etc.)</small>
+                            </div>
+
+                            <button type="submit" id="pinSubmitBtn" class="btn-primary">
+                                <span id="pinSubmitText">Save PINs</span>
+                                <div id="pinSubmitSpinner" class="spinner hidden"></div>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Change Password Section -->
+                    <div class="password-section">
+                        <h4><i class="fas fa-lock"></i> Change Password</h4>
+                        <form id="changePasswordForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" name="currentPassword" required>
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" name="newPassword" minlength="6" required>
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" minlength="6" required>
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+
+                            <button type="submit" id="passwordSubmitBtn" class="btn-primary">
+                                <span id="passwordSubmitText">Change Password</span>
+                                <div id="passwordSubmitSpinner" class="spinner hidden"></div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="accountInfo">
+                <div class="form-container">
+                    <h3><i class="fas fa-info-circle"></i> Account Information</h3>
+                    <div class="account-details-grid">
+                        <div class="account-detail">
+                            <label>Account Number:</label>
+                            <div class="detail-value">
+                                <span id="accountNumber">Loading...</span>
+                                <button onclick="copyAccountNumber()" class="btn-copy">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                        <div class="account-detail">
+                            <label>Current Balance:</label>
+                            <span id="currentBalance" class="balance-amount">₦0.00</span>
+                        </div>
+                        <div class="account-detail">
+                            <label>PIN Status:</label>
+                            <span id="pinStatus" class="status-inactive">Not Set</span>
+                        </div>
+                        <div class="account-detail">
+                            <label>Account Status:</label>
+                            <span id="accountStatus" class="status-active">Active</span>
+                        </div>
+                        <div class="account-detail">
+                            <label>Member Since:</label>
+                            <span id="memberSince">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="security-notice">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Security Notice</h4>
+                        <ul>
+                            <li>Never share your PINs with anyone</li>
+                            <li>QuickPay staff will never ask for your PINs</li>
+                            <li>Set up your PINs before making transactions</li>
+                            <li>Contact support immediately for suspicious activity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

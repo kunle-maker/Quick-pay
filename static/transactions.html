@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - QuickPay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <i class="fas fa-wallet"></i>
+            <span>QuickPay</span>
+        </div>
+        <div class="nav-user">
+            <span id="userName">User</span>
+            <div class="user-menu">
+                <button onclick="toggleUserMenu()" class="user-btn">
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="userDropdown" class="user-dropdown hidden">
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="transactions.html"><i class="fas fa-history"></i> Transactions</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="deposit.html" class="nav-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Deposit</span>
+                </a>
+                <a href="airtime.html" class="nav-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Airtime</span>
+                </a>
+                <a href="data.html" class="nav-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Data</span>
+                </a>
+                <a href="transactions.html" class="nav-item active">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="welcome-banner">
+                <h1>Transaction History</h1>
+                <p>View your complete transaction history</p>
+            </div>
+
+            <div class="transaction-filters">
+                <button class="filter-btn active" onclick="filterTransactions('all')">All</button>
+                <button class="filter-btn" onclick="filterTransactions('deposit')">Deposits</button>
+                <button class="filter-btn" onclick="filterTransactions('airtime')">Airtime</button>
+                <button class="filter-btn" onclick="filterTransactions('data')">Data</button>
+            </div>
+
+            <div id="transactionsContainer" class="transactions-container">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading transactions...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/transactions.js"></script>
+</body>
+</html>

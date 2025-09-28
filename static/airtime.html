@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airtime - QuickPay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <i class="fas fa-wallet"></i>
+            <span>QuickPay</span>
+        </div>
+        <div class="nav-user">
+            <span id="userName">User</span>
+            <div class="user-menu">
+                <button onclick="toggleUserMenu()" class="user-btn">
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="userDropdown" class="user-dropdown hidden">
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="transactions.html"><i class="fas fa-history"></i> Transactions</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="deposit.html" class="nav-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Deposit</span>
+                </a>
+                <a href="airtime.html" class="nav-item active">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Airtime</span>
+                </a>
+                <a href="data.html" class="nav-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Data</span>
+                </a>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="welcome-banner">
+                <h1>Buy Airtime</h1>
+                <p>Recharge any Nigerian phone number instantly</p>
+            </div>
+
+            <div id="alertsContainer"></div>
+
+            <div class="form-container">
+                <div class="current-balance">
+                    <h3>Current Balance: <span id="currentBalance">₦0.00</span></h3>
+                </div>
+
+                <form id="airtimeForm" class="auth-form">
+                    <div class="form-group">
+                        <label>Select Network</label>
+                        <div class="network-selection">
+                            <label class="network-option">
+                                <input type="radio" name="network" value="mtn" required>
+                                <div class="network-card">
+                                    <i class="fas fa-sim-card"></i>
+                                    <span>MTN</span>
+                                </div>
+                            </label>
+                            <label class="network-option">
+                                <input type="radio" name="network" value="airtel">
+                                <div class="network-card">
+                                    <i class="fas fa-sim-card"></i>
+                                    <span>Airtel</span>
+                                </div>
+                            </label>
+                            <label class="network-option">
+                                <input type="radio" name="network" value="glo">
+                                <div class="network-card">
+                                    <i class="fas fa-sim-card"></i>
+                                    <span>Glo</span>
+                                </div>
+                            </label>
+                            <label class="network-option">
+                                <input type="radio" name="network" value="9mobile">
+                                <div class="network-card">
+                                    <i class="fas fa-sim-card"></i>
+                                    <span>9mobile</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient">Phone Number</label>
+                        <input type="tel" id="recipient" name="recipient" placeholder="e.g., 08012345678" required>
+                        <i class="fas fa-mobile-alt input-icon"></i>
+                        <div id="recipientError" class="error-text"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Amount</label>
+                        <div class="amount-selection">
+                            <button type="button" class="amount-btn" onclick="selectAmount(100)">₦100</button>
+                            <button type="button" class="amount-btn" onclick="selectAmount(200)">₦200</button>
+                            <button type="button" class="amount-btn" onclick="selectAmount(500)">₦500</button>
+                            <button type="button" class="amount-btn" onclick="selectAmount(1000)">₦1,000</button>
+                            <button type="button" class="amount-btn" onclick="selectAmount(2000)">₦2,000</button>
+                        </div>
+                        <input type="number" id="customAmount" name="amount" placeholder="Or enter custom amount" min="50" max="10000" required>
+                        <div id="amountError" class="error-text"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentPin">Payment PIN</label>
+                        <input type="password" id="paymentPin" name="paymentPin" maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit PIN" required>
+                        <i class="fas fa-key input-icon"></i>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-primary btn-full">
+                        <span id="submitText">Buy Airtime</span>
+                        <div id="submitSpinner" class="spinner hidden"></div>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/airtime.js"></script>
+</body>
+</html>
